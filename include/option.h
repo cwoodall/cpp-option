@@ -34,7 +34,7 @@ struct Nothing {};
  * @endcode
  */
 template <typename T>
-class Option final {
+class Option {
  public:
   Option() : isSomething_(false) {}
 
