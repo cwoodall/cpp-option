@@ -1,6 +1,8 @@
 # cpp-option 
 
 ![Travis Build](https://travis-ci.org/cwoodall/cpp-option.svg)
+![Coverage Report](https://coveralls.io/repos/github/cwoodall/cpp-option/badge.svg?branch=master)
+
 ## Todo
 
 - [ ] Add comments to option and examples
