@@ -1,5 +1,6 @@
-# cpp-option
+# cpp-option 
 
+![Travis Build](https://travis-ci.org/cwoodall/cpp-option.svg)
 ## Todo
 
 - [ ] Add comments to option and examples
