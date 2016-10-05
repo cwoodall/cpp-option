@@ -1,6 +1,7 @@
 all:
-	cd examples; make;
-
+	cd examples; make; cd ..
+	cd tests; make; cd ..
+	
 .PHONY: clean
 
 clean:

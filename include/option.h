@@ -8,6 +8,11 @@
  * @author Chris Woodall <chris@cwoodall.com>
  */
 
+#ifndef CJW_OPTION_H_
+#define CJW_OPTION_H_
+#include <type_traits>
+#include "checking.h"
+
 /**
  * @brief a tag type to represent creating a nothing Option.
  *
@@ -61,14 +66,26 @@ class Option {
    *
    * @return isSomething_ (true if it is something, false otherwise)
    */
-  inline constexpr explicit operator bool(void) const { return isSomething_; }
+  inline constexpr explicit operator bool(void) const { return is_something(); }
+
+  inline constexpr bool is_something(void) const { return isSomething_; }
+  inline constexpr bool is_nothing(void) const { return !isSomething_; }
 
   /**
    * Get the value stored inside of the Option<T> type
    *
    * @return something_;
    */
-  inline constexpr T unwrap(void) const { return something_; }
+  template <typename C = AssertCheckingPolicy>
+  inline constexpr T unwrap(void) const {
+    static_assert(std::is_base_of<CheckingPolicy, C>::value,
+                  "The checking policy must be derived from CheckingPolicy");
+    return C::check(is_something()), something_;
+  }
+
+  inline constexpr T unwrap_unsafe(void) const {
+    return unwrap<LaxCheckingPolicy>();
+  }
 
   /**
    * Get the value stored inside of the Option<T> type or if it is Nothing()
@@ -77,7 +94,7 @@ class Option {
    * @return something_;
    */
   inline constexpr T unwrap_or(T or_val) const {
-    return (isSomething_) ? something_ : or_val;
+    return is_something() ? something_ : or_val;
   }
 
  private:
@@ -115,3 +132,5 @@ template <typename T>
 constexpr Option<T> Some(T something) {
   return Option<T>(something);
 }
+
+#endif  // CJW_OPTION_H_

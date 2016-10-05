@@ -3,3 +3,9 @@
 *.gch
 *.o
 examples/divide
+*.gcda
+*.gcno
+*.lcov
+*.gcov
+
+env/

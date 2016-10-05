@@ -1,5 +1,5 @@
 IDIR =../include
-CFLAGS=-std=c++11 -I$(IDIR) 
+CFLAGS=-std=c++11 -I$(IDIR)
 
 ODIR=.
 
@@ -8,12 +8,12 @@ DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
 EXAMPLE_PROGRAMS = divide
 
-$(ODIR)/%.o: %.cc $(DEPS)
+$(ODIR)/%.o: %.cpp $(DEPS)
 	$(CXX) -c -o $@ $< $(CFLAGS)
 
-examples: $(EXAMPLE_PROGRAMS)
+all: $(EXAMPLE_PROGRAMS)
 
-divide: divide.o 
+divide: divide.o
 	$(CXX) -o $@ $^ $(CFLAGS) $(LIBS)
 
 .PHONY: clean
