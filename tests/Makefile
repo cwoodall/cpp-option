@@ -1,5 +1,5 @@
 CPPFLAGS += -I../include -I$(CPPUTEST_HOME)/include -g -fprofile-arcs -ftest-coverage
-CXXFLAGS += -include $(CPPUTEST_HOME)/include/CppUTest/MemoryLeakDetectorNewMacros.h
+CXXFLAGS += -include $(CPPUTEST_HOME)/include/CppUTest/MemoryLeakDetectorNewMacros.h --coverage
 CFLAGS += -include $(CPPUTEST_HOME)/include/CppUTest/MemoryLeakDetectorMallocMacros.h
 LD_LIBRARIES = -L$(CPPUTEST_HOME)/lib -lCppUTest -lCppUTestExt -lstdc++ -g -fprofile-arcs -ftest-coverage
 

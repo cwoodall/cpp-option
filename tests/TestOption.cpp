@@ -1,6 +1,8 @@
 #include "CppUTest/TestHarness.h"
 #include "option.h"
 
+template class Option<int>;
+
 // clang-format off
 
 TEST_GROUP(TestOption){

@@ -50,7 +50,7 @@ class Option {
   Option(const Option<T> &other)
       : isSomething_(other.isSomething_), something_(other.something_) {}
 
-  Option<T> &operator=(const Option<T> &other) const {
+  Option<T> &operator=(const Option<T> &other) {
     something_ = other.something_;
     isSomething_ = other.isSomething_;
 
