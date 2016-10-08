@@ -11,6 +11,7 @@
 #ifndef CJW_OPTION_H_
 #define CJW_OPTION_H_
 #include <type_traits>
+#include <utility>
 #include "checking.h"
 
 /**
@@ -50,7 +51,7 @@ class Option {
   Option(const Option<T> &other)
       : isSomething_(other.isSomething_), something_(other.something_) {}
 
-  Option<T> &operator=(const Option<T> &other) {
+  Option &operator=(const Option &other) {
     something_ = other.something_;
     isSomething_ = other.isSomething_;
 
@@ -58,15 +59,25 @@ class Option {
   }
 
   Option(Option &&other)
-      : something_(other.something_), isSomething_(other.isSomething_) {}
+      : something_(std::move(other.something_)),
+        isSomething_(std::move(other.isSomething_)) {
+    other.isSomething_ = false;
+  }
 
+  Option &operator=(Option &&other) {
+    something_ = std::move(other.something_);
+    isSomething_ = std::move(other.isSomething_);
+
+    other.isSomething_ = false;
+    return *this;
+  }
   /**
    * An explicit conversion to bool, which makes boolean comparisons of the
    * Option type possible
    *
    * @return isSomething_ (true if it is something, false otherwise)
    */
-  inline constexpr explicit operator bool(void) const { return is_something(); }
+  inline constexpr explicit operator bool(void) const { return isSomething_; }
 
   inline constexpr bool is_something(void) const { return isSomething_; }
   inline constexpr bool is_nothing(void) const { return !isSomething_; }
@@ -78,8 +89,6 @@ class Option {
    */
   template <typename C = AssertCheckingPolicy>
   inline constexpr T unwrap(void) const {
-    static_assert(std::is_base_of<CheckingPolicy, C>::value,
-                  "The checking policy must be derived from CheckingPolicy");
     return C::check(is_something()), something_;
   }
 
@@ -94,7 +103,7 @@ class Option {
    * @return something_;
    */
   inline constexpr T unwrap_or(T or_val) const {
-    return is_something() ? something_ : or_val;
+    return (is_something()) ? something_ : or_val;
   }
 
  private:

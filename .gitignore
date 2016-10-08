@@ -9,3 +9,5 @@ examples/divide
 *.gcov
 
 env/
+
+tests/test
