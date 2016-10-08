@@ -7,7 +7,7 @@ install:
 script:
   - make
 after_success:
-  - coveralls -f gcov-4.8 --exclude env --exclude examples --exclude tests/AllTests.cpp --exclude tests/TestOption.cpp --gcov-options '\-lp'
+  - coveralls --gcov gcov-4.8 --exclude env --exclude examples --exclude tests/AllTests.cpp --exclude tests/TestOption.cpp --gcov-options '\-lp'
 addons:
   apt:
     sources:

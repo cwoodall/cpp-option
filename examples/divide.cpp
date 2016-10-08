@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "option.h"
+#include "../include/option.h"
 
 Option<int> divide(int a, int b) {
   if (b == 0) {

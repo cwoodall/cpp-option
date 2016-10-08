@@ -6,7 +6,7 @@ ODIR=.
 _DEPS = option.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-EXAMPLE_PROGRAMS = divide
+EXAMPLE_PROGRAMS = divide array
 
 $(ODIR)/%.o: %.cpp $(DEPS)
 	$(CXX) -c -o $@ $< $(CFLAGS)
@@ -14,6 +14,9 @@ $(ODIR)/%.o: %.cpp $(DEPS)
 all: $(EXAMPLE_PROGRAMS)
 
 divide: divide.o
+	$(CXX) -o $@ $^ $(CFLAGS) $(LIBS)
+
+array: array.o
 	$(CXX) -o $@ $^ $(CFLAGS) $(LIBS)
 
 .PHONY: clean
