@@ -6,9 +6,9 @@ template <typename T, size_t S>
 struct Array {
   T buf[S];
 
-  Option<T *> operator[](size_t i) {
+  Option<T> operator[](size_t i) {
     if (i < S) {
-      return Some(&buf[i]);
+      return Some(buf[i]);
     } else {
       return {};
     }
@@ -22,9 +22,7 @@ int main() {
     auto bar = foo[i];
     if (bar) {
       auto baz = bar.unwrap();
-      printf("%d: %d\n", i, *baz);
-      // and we can still modify
-      (*baz)++;
+      printf("%d: %d\n", i, baz);
     } else {
       printf("%d: out of range\n", i);
     }
